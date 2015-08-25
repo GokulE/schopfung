@@ -1,0 +1,78 @@
+<html>
+<head>
+  <script type="text/javascript">
+         //<!--
+            function actionSignup() {
+                window.location="signup.html";
+            }
+         //-->
+		 
+		 
+
+function actionLogin()
+{
+ //alert("status  fun1");
+var a;
+
+    if (window.XMLHttpRequest)
+    {// If the browser if IE7+[or]Firefox[or]Chrome[or]Opera[or]Safari
+      a=new XMLHttpRequest();
+    }
+   else
+    {//If browser is IE6, IE5
+      a=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+a.onreadystatechange=function()
+{
+  if (a.status==200 && a.readyState == 4 )
+  {
+  //alert("status  = 200");
+    //document.getElementById("myDiv").innerHTML=a.responseText;
+	var content = document.createElement("div");
+var txt = document.createTextNode(a.responseText);
+alert("from server" + a.responseText);
+content.appendChild(txt);
+document.body.appendChild(content);
+   }
+   else{
+  //alert("status ! = 200");
+  //alert(a.status);
+   }
+}
+var firstname = document.getElementById("firstname");
+var password = document.getElementById("password");
+//alert(firstname.value);
+//a.open("GET","LoginServlet?first_name=" + firstname.value + "&password=",true);
+//a.open("POST","LoginServlet,true);
+//alert("posted");
+var postParameters="first_name=" + firstname.value + "&password=" + password.value ;
+//a.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+//a.send(postParameters);
+//alert("sent");
+
+
+a.open("POST", "LoginServlet", true)
+a.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+a.send(postParameters)
+} // fun1() close		 
+      </script>
+	  
+	  
+	  
+	  
+	  
+</head>
+
+
+<body>
+<form>
+User Name/Email: <input type="text" name="first_name" id="firstname">
+<br />
+Password: <input type="text" name="password" id="password" /><br />
+<input type="button" value="Log in" onclick="actionLogin()"/><br />
+<input type="button" onclick="actionSignup()" id="signup" value="Sign up" />
+</form>
+
+</body>
+</html>
